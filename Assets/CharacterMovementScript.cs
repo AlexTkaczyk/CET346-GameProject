@@ -9,10 +9,11 @@ public class CharacterMovementScript : MonoBehaviour
     public Joystick leftJoystick, rightJoystick;
     private Vector3 vector3;
     public float speed = 3f;
-    public float sensitivity = 2f;
+    public float sensitivity = 1f;
 
     private float move_x, move_z, rot_x, rot_y;
-
+    private float lookUp = 60f ;
+    private float lookDown = - 60f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,8 @@ public class CharacterMovementScript : MonoBehaviour
 
         rot_x = rightJoystick.Horizontal * sensitivity;
         rot_y = rightJoystick.Vertical * sensitivity;
+
+        rot_y = Mathf.Clamp(rot_y, lookDown, lookUp);
 
         vector3 = new Vector3(move_x, 0, move_z);
 
