@@ -6,14 +6,11 @@ public class CharacterMovementScript : MonoBehaviour
 {
     public CharacterController controller;
     public Camera camera;
-    public Joystick leftJoystick, rightJoystick;
+    public Joystick leftJoystick;
     private Vector3 vector3;
     public float speed = 3f;
     public float sensitivity = 1f;
-
-    private float move_x, move_z, rot_x, rot_y;
-    private float lookUp = 60f ;
-    private float lookDown = - 60f;
+    private float rot_x, move_z;
 
     // Start is called before the first frame update
     void Start()
@@ -24,20 +21,12 @@ public class CharacterMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move_x = leftJoystick.Horizontal * speed;
         move_z = leftJoystick.Vertical * speed;
-
-        rot_x = rightJoystick.Horizontal * sensitivity;
-        rot_y = rightJoystick.Vertical * sensitivity;
-
-        rot_y = Mathf.Clamp(rot_y, lookDown, lookUp);
-
-        vector3 = new Vector3(move_x, 0, move_z);
-
+        rot_x = leftJoystick.Horizontal * sensitivity;
         transform.Rotate(0, rot_x, 0);
-        camera.transform.Rotate(-rot_y, 0, 0);
-        vector3 = transform.rotation * vector3;
 
+        vector3 = new Vector3(rot_x, 0, move_z);
+        vector3 = transform.rotation * vector3;
         controller.Move(vector3 * Time.deltaTime);
     }
 }
