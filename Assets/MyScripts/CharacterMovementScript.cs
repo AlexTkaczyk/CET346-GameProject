@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CharacterMovementScript : MonoBehaviour
 {
@@ -12,12 +13,15 @@ public class CharacterMovementScript : MonoBehaviour
     private float rot_x, move_z;
     private float gravity = 14f;
     private float verticalVelocity;
+    public NavMeshAgent agent;
+    private Vector3 startPos;
+    public Vector3 point1;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -39,5 +43,10 @@ public class CharacterMovementScript : MonoBehaviour
         vector3 = new Vector3(rot_x, verticalVelocity, move_z);
         vector3 = transform.rotation * vector3;
         controller.Move(vector3 * Time.deltaTime);
+
+        if (Vector3.Distance(controller.transform.position, agent.transform.position) < 3f)
+        {
+            agent.SetDestination(point1);
+        }
     }
 }

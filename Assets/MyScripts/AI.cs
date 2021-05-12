@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
-    //public GameObject sphere, point2;
+    public GameObject player; //sphere, point2;
     public NavMeshAgent agent;
     public float delta = 1.5f;
     public float speed = 5.0f;
@@ -22,7 +22,11 @@ public class AI : MonoBehaviour
     void Update()
     {
         Vector3 v = startPos;
-        agent.SetDestination(point1);
+        if(Vector3.Distance(transform.position, player.transform.position) < 3)
+        {
+            agent.SetDestination(point1);
+        }
+
         //v.x += delta * Mathf.Sin(Time.time * speed);
         //transform.position = v;
     }
