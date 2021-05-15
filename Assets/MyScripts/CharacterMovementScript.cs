@@ -9,7 +9,7 @@ public class CharacterMovementScript : MonoBehaviour
     public Joystick leftJoystick;
     private Vector3 vector3;
     public float speed = 3f;
-    public float sensitivity = 1f;
+    private float sensitivity = 1f;
     private float rot_x, move_z;
     private float gravity = 14f;
     private float verticalVelocity;
