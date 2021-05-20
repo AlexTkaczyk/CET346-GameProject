@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterMovementScript : MonoBehaviour
+public class CharacterScript : MonoBehaviour
 {
     public CharacterController controller;
+    public Camera cam;
     public Joystick leftJoystick;
     private Vector3 vector3;
     public float speed = 3f;
-    private float sensitivity = 1f;
+    private float sensitivity = 1.5f;
     private float rot_x, move_z;
     private float gravity = 14f;
     private float verticalVelocity;
-    public NavMeshAgent agent;
-    private Vector3 startPos;
     public Vector3 point1;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.position;
+
     }
 
     // Update is called once per frame
@@ -44,9 +42,23 @@ public class CharacterMovementScript : MonoBehaviour
         vector3 = transform.rotation * vector3;
         controller.Move(vector3 * Time.deltaTime);
 
-        if (Vector3.Distance(controller.transform.position, agent.transform.position) < 3f)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            agent.SetDestination(point1);
+            Ray ray = cam.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 10f))
+            {
+                if (hit.collider.CompareTag("Item"))
+                {           
+                    bool isPickedUp = Inventory.instance.AddItem(hit.collider.GetComponent<Item>().item);
+                    if(isPickedUp)
+                    {
+                        //Debug.Log("Picked up" + hit.collider.GetComponent<ItemScript>().item.itemName);
+                        Destroy(hit.collider.gameObject);
+                    }
+                }
+            }
         }
     }
 }
