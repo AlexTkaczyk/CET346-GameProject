@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour
     public Button removebutton;
     public int index;
     public InteractableObjects leverUp, leverDown;
+    //public Animator platformAnimator;
 
     public void AddItem(ScriptableItem newItem)
     {
@@ -43,7 +44,8 @@ public class InventorySlot : MonoBehaviour
              {
                 leverUp.interactable.SetActive(false);
                 leverDown.interactable.SetActive(true);
-            }
+                //platformAnimator.Play("Platform_Animation");
+             }
             //Inventory.instance.DebugItems();
 
             Debug.Log(index);

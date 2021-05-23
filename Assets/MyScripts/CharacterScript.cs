@@ -39,8 +39,6 @@ public class CharacterScript : MonoBehaviour
             verticalVelocity -= gravity * Time.deltaTime;
         }
 
-
-        
         vector3 = new Vector3(rot_x, verticalVelocity, move_z);
         vector3 = transform.rotation * vector3;
         controller.Move(vector3 * Time.deltaTime);

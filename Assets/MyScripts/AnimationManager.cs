@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class AnimationManager : MonoBehaviour
 {
     public Camera cam;
     Animator animator;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +15,7 @@ public class AnimationManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
@@ -33,4 +35,13 @@ public class AnimationManager : MonoBehaviour
 
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == player)
+        {
+            player.transform.parent = transform;
+        }
+    }
+
 }
