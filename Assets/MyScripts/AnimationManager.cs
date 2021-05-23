@@ -24,6 +24,7 @@ public class AnimationManager : MonoBehaviour
             {
                 if (hit.collider.CompareTag("DoorButton"))
                 {
+                    animator.Play("Button_Press_Animation");
                     animator.Play("Left_Door_Open_Animation");
                     animator.Play("Right_Door_Open_Animation");
                 }
