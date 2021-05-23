@@ -9,6 +9,7 @@ public class InventorySlot : MonoBehaviour
     public Image itemIcon;
     public Button removebutton;
     public int index;
+    public InteractableObjects leverUp, leverDown;
 
     public void AddItem(ScriptableItem newItem)
     {
@@ -36,9 +37,15 @@ public class InventorySlot : MonoBehaviour
     public void UseItem()
     {
         if(item != null)
-        {            
-            //Inventory.instance.DebugItems();
+        {
             item.Use();
+             if(item.itemName == "OilCan")
+             {
+                leverUp.interactable.SetActive(false);
+                leverDown.interactable.SetActive(true);
+            }
+            //Inventory.instance.DebugItems();
+
             Debug.Log(index);
             //Debug.Log(Inventory.instance.itemList[index].itemName);
             //Inventory.instance.itemList[index].Use();

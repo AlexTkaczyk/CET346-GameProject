@@ -16,6 +16,12 @@ public class ScriptableItem : ScriptableObject
         {
             Debug.Log("yay");
         }
+
+        if(itemName == "OilCan")
+        {
+
+        }
+
     }
 
 }

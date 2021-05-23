@@ -16,6 +16,7 @@ public class CharacterScript : MonoBehaviour
     private float verticalVelocity;
     public Vector3 point1;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,8 @@ public class CharacterScript : MonoBehaviour
         {
             verticalVelocity -= gravity * Time.deltaTime;
         }
+
+
         
         vector3 = new Vector3(rot_x, verticalVelocity, move_z);
         vector3 = transform.rotation * vector3;
@@ -50,9 +53,9 @@ public class CharacterScript : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 10f))
             {
                 if (hit.collider.CompareTag("Item"))
-                {           
+                {
                     bool isPickedUp = Inventory.instance.AddItem(hit.collider.GetComponent<Item>().item);
-                    if(isPickedUp)
+                    if (isPickedUp)
                     {
                         //Debug.Log("Picked up" + hit.collider.GetComponent<ItemScript>().item.itemName);
                         Destroy(hit.collider.gameObject);
