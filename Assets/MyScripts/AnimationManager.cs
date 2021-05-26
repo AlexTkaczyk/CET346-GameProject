@@ -22,9 +22,9 @@ public class AnimationManager : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.GetTouch(0).position);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 20f))
+            if(Physics.Raycast(ray, out hit, 20f))
             {
-                if (hit.collider.CompareTag("DoorButton"))
+                if(hit.collider.CompareTag("DoorButton"))
                 {
                     animator.Play("Button_Press_Animation");
                     animator.Play("Left_Door_Open_Animation");
@@ -35,10 +35,9 @@ public class AnimationManager : MonoBehaviour
 
         }
     }
-
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == player)
+        if (other.gameObject == player)
         {
             player.transform.parent = transform;
         }

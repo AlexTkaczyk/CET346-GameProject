@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public void RemoveItem(ScriptableItem item)
+    public bool RemoveItem(ScriptableItem item)
     {
         itemList.Remove(item);
 
@@ -47,14 +47,8 @@ public class Inventory : MonoBehaviour
         {
             onItemChangedCallback.Invoke();
         }
-    }
 
-    public void DebugItems()
-    {
-        for(int i = 0; i < itemList.Count; i++)
-        {
-            Debug.Log(itemList[i].itemName);
-        }
+        return true;
     }
 }
 

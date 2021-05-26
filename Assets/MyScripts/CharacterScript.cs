@@ -15,14 +15,6 @@ public class CharacterScript : MonoBehaviour
     private float gravity = 14f;
     private float verticalVelocity;
     public Vector3 point1;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -55,8 +47,7 @@ public class CharacterScript : MonoBehaviour
                     bool isPickedUp = Inventory.instance.AddItem(hit.collider.GetComponent<Item>().item);
                     if (isPickedUp)
                     {
-                        //Debug.Log("Picked up" + hit.collider.GetComponent<ItemScript>().item.itemName);
-                        Destroy(hit.collider.gameObject);
+                        hit.collider.gameObject.SetActive(false);
                     }
                 }
             }
