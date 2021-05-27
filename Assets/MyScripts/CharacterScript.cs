@@ -9,12 +9,17 @@ public class CharacterScript : MonoBehaviour
     public Camera cam;
     public Joystick leftJoystick;
     private Vector3 vector3;
-    public float speed = 3f;
+    public float speed = 5f;
     private float sensitivity = 1.5f;
     private float rot_x, move_z;
     private float gravity = 14f;
     private float verticalVelocity;
-    public Vector3 point1;
+    public UIScript UIObjectives;
+
+    private void Start()
+    {
+        UIObjectives.welcomeText.gameObject.SetActive(true);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -50,7 +55,22 @@ public class CharacterScript : MonoBehaviour
                         hit.collider.gameObject.SetActive(false);
                     }
                 }
+
+                if (hit.collider.CompareTag("DoorButton"))
+                {
+                    UIObjectives.welcomeText.gameObject.SetActive(false);
+                    UIObjectives.objectives.SetActive(true);
+                    UIObjectives.objective1.gameObject.SetActive(true);
+                }
+
+                if (hit.collider.CompareTag("LeverUp"))
+                {
+                    UIObjectives.objective1.gameObject.SetActive(false);
+                    UIObjectives.objective2.gameObject.SetActive(true);
+                }
             }
         }
     }
+
+
 }

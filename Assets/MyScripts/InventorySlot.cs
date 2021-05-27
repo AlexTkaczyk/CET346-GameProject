@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class InventorySlot : MonoBehaviour
 {
     ScriptableItem item;
@@ -13,6 +14,8 @@ public class InventorySlot : MonoBehaviour
         batteryThing, batteryThingWithBatteries, oilSpill;
     public GameObject fire;
     public Animator platformAnimator, particleAnimator;
+    public UIScript UIObjectives;
+
 
     public void AddItem(ScriptableItem newItem)
     {
@@ -20,8 +23,6 @@ public class InventorySlot : MonoBehaviour
         itemIcon.sprite = item.itemIcon;
         itemIcon.enabled = true;
         removebutton.interactable = true;
-        Debug.Log("ADD ITEM " + item.itemName + " / " + newItem.itemName);
-
     }
 
     public void ClearSlot()
@@ -46,18 +47,23 @@ public class InventorySlot : MonoBehaviour
             {
                 leverUp.interactable.SetActive(false);
                 leverDown.interactable.SetActive(true);
+                UIObjectives.objective2.gameObject.SetActive(false);
                 platformAnimator.Play("Platform_Animation");
+                StartCoroutine(Countdown());
             }
 
             if(item.itemName == "PhosphorLight")
-            { 
+            {
                 phosphorusLight.interactable.SetActive(true);
+                UIObjectives.objective3.gameObject.SetActive(false);
                 StartCoroutine(DestroyCoroutine());
             }
 
             if (item.itemName == "Knife")
             {
                 oilSpill.interactable.SetActive(true);
+                UIObjectives.objective4.gameObject.SetActive(false);
+                UIObjectives.objective5.gameObject.SetActive(true);
             }
 
             if (item.itemName == "Lighter")
@@ -86,6 +92,8 @@ public class InventorySlot : MonoBehaviour
                 batteryThing.interactable.SetActive(false);
                 batteryThingWithBatteries.interactable.SetActive(true);
                 particleAnimator.Play("Portal_Animation");
+                UIObjectives.objectives.gameObject.SetActive(false);
+                UIObjectives.outroText.gameObject.SetActive(true);
             }
 
             if (item.itemName == "BatteryGreen")
@@ -102,6 +110,8 @@ public class InventorySlot : MonoBehaviour
         yield return new WaitForSeconds(5);
         Destroy(spider.interactable);
         Destroy(phosphorusLight.interactable);
+        yield return new WaitForSeconds(5);
+        UIObjectives.objective4.gameObject.SetActive(true);
     }
 
     IEnumerator FireCoroutine()
@@ -109,5 +119,15 @@ public class InventorySlot : MonoBehaviour
         yield return new WaitForSeconds(5);
         Destroy(randomStuff.interactable);
         fire.SetActive(false);
+        Destroy(oilSpill.interactable);
+        yield return new WaitForSeconds(5);
+        UIObjectives.objective5.gameObject.SetActive(false);
+        UIObjectives.objective6.gameObject.SetActive(true);
+    }
+
+    IEnumerator Countdown()
+    {
+        yield return new WaitForSeconds(8);
+        UIObjectives.objective3.gameObject.SetActive(true);
     }
 }

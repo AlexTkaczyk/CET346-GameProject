@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
-    //public GameObject player; //sphere, point2;
     public CharacterController controller;
     public NavMeshAgent agent;
     public float speed = 5.0f;
-    public Vector3 point1;// point2;
+    public Transform point1;
+    public Transform lowerBound, upperBound;// point2;
 
     public float time;
     bool isWorking;
@@ -27,25 +27,23 @@ public class AI : MonoBehaviour
         {
             StartCoroutine(Coroutine());
         }
-
-        //v.x += delta * Mathf.Sin(Time.time * speed);
-        //transform.position = v;
     }
 
     Vector3 getRandomPos()
     {
-        float x = Random.Range(-10, 10);
-        float z = Random.Range(-20, 20);
+        float x = Random.Range(lowerBound.position.x, upperBound.position.x);
+        float z = Random.Range(lowerBound.position.z, upperBound.position.z);
 
-        Vector3 pos = new Vector3(x, 0, z);
+        Vector3 pos = new Vector3(x, transform.position.y, z);
         return pos;
+       
     }
 
     IEnumerator Coroutine()
     {
         isWorking = true;
-        yield return new WaitForSeconds(time);
         GetNewDestination();
+        yield return new WaitForSeconds(time);
         isWorking = false;
     }
 
@@ -55,7 +53,9 @@ public class AI : MonoBehaviour
 
         if (Vector3.Distance(controller.transform.position, agent.transform.position) < 5)
         {
-            agent.SetDestination(point1);
+            agent.speed = 10f;
+            agent.SetDestination(point1.position);
+
         }
     }
 }
